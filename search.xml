@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title><![CDATA[Python解析库XPath]]></title>
+    <url>%2F2018%2F07%2F29%2FXpath%2F</url>
+    <content type="text"><![CDATA[Python解析库（一）：使用XPath表达式 描述nodename 选取此节点的所有子节点 / 从当前节点选取直接子节点 // 从当前节点选取子孙节点 . 选取当前节点 . . 选取当前节点的父节点 @ 选取属性 例如： //title[@lang=’eng’] 这是一个XPath规则，他代表选取所有名称为title，同时属性为lang的值为ang的节点。 2.关于lxml库中的etree模块：先用etree模块申明一段HTML文本，etree模块可自动补全HTML文本， 然后调用tostring（）方法输出修正后的HTML文本，结果为bytes型 利用decode（）方法转化为str类型 3.所有节点：用//开头选取所有符合要求的节点，声明文本后，调用xpath（）方法，例如：xpath（//节点名称） 返回的为列表，其中的每一个元素都是一个Element对象，可选择中括号加索引的形式取出其中的一个对象 4.子节点：通过//和/来获取当前节点的子节点或者子孙节点； /用来获取直接子节点，例如result=html.xpath（//li/a） //用来获取子孙节点，例如result=html.xpath（//ul//a） 5.父节点：用. .来查找父节点 比如： from lxml import etree html = etree.parse(&apos;./text.html&apos; , etree.HTMLParser()) result = html.xpath(&apos;//a[@href=&quot;link4.html&quot;]/. ./@class&apos;] print(result) 当然，. .可以用parent::来替换 6.属性匹配：比如要选取class为item-0的li节点，可以这样实现： from lxml import etree html=etree.parse(&apos;./text.html&apos;,etree.HTMLParser()) result = html.xpath(&apos;//li[@class=&apos;items-0&apos;]&apos;) print(result) 7.文本获取：可以利用XPath中的text（）方法获取其中节点中的文本 选取相应的节点获取文本 from lxml import etree html = etree.parse(&apos;./text.html&apos; , etree.HTMLParser()) result = html.xpath(&apos;//li[@class=&quot;item-0&quot;]/a/text()&apos;) print(result) 利用//来实现选取结果 from lxml import etree html = etree.parse(&apos;./text.html&apos; , etree.HTMLParser()) result = html.xpath(&apos;//li[@class=&quot;item-0&quot;]/a/text()&apos;) print(result) 8.按序选择：在li节点的括号中传入数字1即可，这里的序号是以1开头，不是0 例如：result = html.xpath(&apos;//li[1]/a/text()&apos;) 在括号中传入last（）可知，获取的便是最后一个li节点 例如：result = html.xpath(&apos;//li[last()]/a/text()&apos;) 选取位置小于3的li节点，利用position（）函数实现 例如：result = html.xpath(&apos;//li[position()&lt;3]/a/text()&apos;) 获取倒数第三个li节点：用last()实现 例如：result = html.xpath(&apos;//li[last()-2]/a/text()&apos;) 9.节点轴的选取：节点的轴方法，可获取子元素，兄弟元素，父元素，祖先元素等 result = html.xpath(&apos;//li[1]/ancestor::*&apos;) #ancestor轴，用于获取所有祖先元素 result = html.xpath(&apos;//li[1]/ancestor::div&apos;)#加限定条件div result = html.xpath(&apos;//li[1]/child::a[href=&quot;link1.html&quot;]&apos;)#获取相应属性的子节点 result = html.xpath(&apos;//li[1]/descendant::span&apos;)#descendant获取所有的子孙节点，span是限定条件 result = html.xpath(&apos;//li[1]/following::*[2]&apos;)#following轴，获取当前节点之后的所有节点，但是这里加了索引限制 result = html.xpath(&apos;//li[1]/following-sibling::*&apos;)#follow-sibling轴，可以获取当前节点之后的所有同级节点]]></content>
+      <categories>
+        <category>python3</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+        <tag>Network Crawler</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Hello World]]></title>
+    <url>%2F2018%2F07%2F29%2Fhello-world%2F</url>
+    <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
+  </entry>
+</search>
