@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA[linux]]></title>
+    <title><![CDATA[linux中如何开启root]]></title>
     <url>%2F2018%2F07%2F30%2Flinux%E4%B8%ADroot%E6%A8%A1%E5%BC%8F%E5%BC%80%E5%90%AF%2F</url>
     <content type="text"><![CDATA[sudo passwd root, 为root输入新密码， 然后输入su root 回车后， 输入刚才新建的root密码， 就进入了root用户。]]></content>
       <categories>
