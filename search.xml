@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[分析Ajax爬取今日头条街拍美图]]></title>
+    <url>%2F2018%2F07%2F31%2F%E5%88%86%E6%9E%90Ajax%E7%88%AC%E5%8F%96%E4%BB%8A%E6%97%A5%E5%A4%B4%E6%9D%A1%E8%A1%97%E6%8B%8D%E7%BE%8E%E5%9B%BE%2F</url>
+    <content type="text"><![CDATA[今天初学了Ajax，Ajax技术可以利用JavaScript在网页不被刷新的情况下与服务器交换数据并更新网页的部分技术，于是乎，利用Ajax的这一特性，决定去爬取今日头条的街拍图片并且实现自动分类汇总。 #实战演练 实现方法get_page()来加载单个的Ajax的请求过程123456789101112131415161718import requestsfrom urllib.parse import urlencodedef get_page(offert): params=&#123; 'offset':offset, 'format':'json', 'keyword':'街拍', 'autoload':'ture', 'count':'20', 'cur_tab':'1' &#125; url='https://www.toutiao.com/search_content/?'+ urlencode(params) try: response=requests.get(url) if response.status_code==200: return response.json() except requests.ConnectionError: return None 这里我们通过网页开发者模式可以看出URL的基本构造，唯一不变的是参数offset，所以我们将他作为参数传递，我们使用urlencode()的方法来实现网页的GET请求，然后用requests实现整个网页的GET请求，如果连接的状态码为200，那么返回为用函数response的json()将结果转化为JSON格式内容。]]></content>
+      <categories>
+        <category>Python3</category>
+      </categories>
+      <tags>
+        <tag>Python3</tag>
+        <tag>Network Crawler</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[利用第三方解析库爬取知乎推荐页面并采用txt文本储存]]></title>
     <url>%2F2018%2F07%2F31%2F%E5%88%A9%E7%94%A8%E7%AC%AC%E4%B8%89%E6%96%B9%E8%A7%A3%E6%9E%90%E5%BA%93%E7%88%AC%E5%8F%96%E7%9F%A5%E4%B9%8E%E6%8E%A8%E8%8D%90%E9%A1%B5%E9%9D%A2%E5%B9%B6%E9%87%87%E7%94%A8txt%E6%96%87%E6%9C%AC%E5%82%A8%E5%AD%98%2F</url>
     <content type="text"><![CDATA[采用第三方库快捷爬取知乎推荐页面源代码并解析：123456789101112131415161718import requests from pyquery import PyQuery as pqurl="https://www.zhihu.com/explore"headers =&#123; 'User-Agent':"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36"&#125; #虚拟用户登陆，防止封iphtml=requests.get(url,headers=headers).textdoc=pq(html) #初始化文本items=doc('.explore-tab .feed-item').items()for item in items: question=item.find("h2").text() author=item.find(".author-link-line").text() answer=pq(item.find('.content').html()).text() file=open('explore.txt','a',encoding='utf-8') file.write('\n'.join([question,author,answer])) file.write('\n'+'=' * 10 + '\n') file.close() 文本代码解析这里主要是为了演示文件保存的方式，因此省略requests库的异常处理应用，通过requests库提取知乎发现一栏的网页源代码，然后爬取知乎热门话题中的问题、回答者、答案全部提取出来，利用python中的open打开一个文件，write写入文件，最后用close关闭，内容也就保存在文本中了 效果图如下：]]></content>
