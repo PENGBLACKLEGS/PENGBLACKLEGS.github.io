@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA[芦广灿是傻逼]]></title>
-    <url>%2F2018%2F07%2F31%2F%E8%8A%A6%E5%B9%BF%E7%81%BF%E6%98%AF%E5%82%BB%E9%80%BC%2F</url>
-    <content type="text"><![CDATA[路光灿是傻逼]]></content>
-  </entry>
-  <entry>
     <title><![CDATA[爬虫实战（一）爬取猫眼top前100]]></title>
     <url>%2F2018%2F07%2F30%2F%E7%88%AC%E8%99%AB%E5%AE%9E%E6%88%98%EF%BC%88%E4%B8%80%EF%BC%89%E7%88%AC%E5%8F%96%E7%8C%AB%E7%9C%BCtop%E5%89%8D100%2F</url>
     <content type="text"><![CDATA[爬虫实战（一）利用python爬取猫眼电影Top前100代码及其解析：1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162#爬虫库import requests#json数据格式库import json#requests异常from requests.exceptions import RequestException#正则表达式import re#延迟函数import time#定义一个读取一个url并返回相应信息的函数def get_one_page(url):try:#伪装浏览器headers=&#123; "User-Agent":'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36' &#125;#读取网页response=requests.get(url,headers=headers)#判断是否读取成功if response.status_code==200:#返回读取的内容（html代码） return response.text return Noneexcept RequestException: return None#定义一个解析html代码的函数def parse_one_page(html):#编译成一个正则表达式对象pattern = re.compile(r'&lt;dd&gt;.*?board-index.*?&gt;(\d+)&lt;/i&gt;.*?data-src="(.*?)".*?name"&gt;&lt;a' + '.*?&gt;(.*?)&lt;/a&gt;.*?star"&gt;(.*?)&lt;/p&gt;.*?releasetime"&gt;(.*?)&lt;/p&gt;' + '.*?integer"&gt;(.*?)&lt;/i&gt;.*?fraction"&gt;(.*?)&lt;/i&gt;.*?&lt;/dd&gt;', re.S)#开始查找items = re.findall(pattern, html)#遍历查找到的内容for item in items:#使用关键字yield 类似于return 返回的是一个生成器对象 yield &#123;'index': item[0], 'image': item[1], 'title': item[2], 'actor': item[3].strip()[3:], 'time': item[4].strip()[5:], 'score': item[5] + item[6] &#125;#将结果写到一个txt文档中def write_to_file(content): with open('result.txt', 'a', encoding='utf-8') as f: f.write(json.dumps(content, ensure_ascii=False) + '\n') #图片下载def pic_download(url,title): r=requests.get(url) with open("pics/"+title+".jpg",'wb') as f: f.write(r.content)#打开需要爬取得所有网页，并进行爬取def main(offset): #网页链接 url='http://maoyan.com/board/4?offset='+str(offset)#请求网页，获取html html=get_one_page(url)#遍历处理后的html结果 for item in parse_one_page(html):#下载图片 pic_download(item['image'], item['title'])#写入到文件中 write_to_file(item)if __name__ == '__main__': for i in range(10): main(offset=i*10)#延迟1秒，避免反爬机制 time.sleep(1) 效果图如下：]]></content>
@@ -13,8 +8,8 @@
         <category>Python3</category>
       </categories>
       <tags>
-        <tag>Network Crawler</tag>
         <tag>Python3</tag>
+        <tag>Network Crawler</tag>
       </tags>
   </entry>
   <entry>
