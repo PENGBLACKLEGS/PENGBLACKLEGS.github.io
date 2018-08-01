@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[利用XPath的特性简单抓取豆瓣电影]]></title>
+    <url>%2F2018%2F08%2F01%2F%E5%88%A9%E7%94%A8XPath%E7%9A%84%E7%89%B9%E6%80%A7%E7%AE%80%E5%8D%95%E6%8A%93%E5%8F%96%E8%B1%86%E7%93%A3%E7%94%B5%E5%BD%B1%2F</url>
+    <content type="text"><![CDATA[今天突然想回顾一下python解析库XPath，利用Xpath的特性可以比正则表达式更快捷的获取网页中的HTML节点，更快的获取网页中的数据。 实例如下:利用requests模拟用户1234567891011import requestsfrom lxml import etreeheaders=&#123; 'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36', 'Referer':'https://movie.douban.com/'&#125;url='https://movie.douban.com/cinema/nowplaying/zhengzhou/'response=requests.get(url,headers=headers)text=response.text 利用Xpath的特性获取HTML节点内容1234567891011121314151617181920212223html=etree.HTML(text)ul=html.xpath("//ul[@class='lists']")[0]lis=ul.xpath("./li")for li in lis: title=li.xpath("@data-title")[0] score = li.xpath("@data-score")[0] duration = li.xpath("@data-duration")[0] region=li.xpath("@data-region")[0] director=li.xpath("@data-director")[0] actors=li.xpath("@data-actors")[0] thumbnail=li.xpath(".//img/@src")[0] movies = [] movie=&#123; 'title': title, 'score':score, 'duration':duration, 'region':region, 'director':director, 'actors':actors, 'thumbnail':thumbnail &#125; movies.append(movie)print(movies) 是不是觉得比正则表达式简单许多！！！ 网页HTML节点内容图片]]></content>
+      <categories>
+        <category>Python3</category>
+      </categories>
+      <tags>
+        <tag>Network Crawler</tag>
+        <tag>Python3</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[分析Ajax爬取今日头条街拍美图]]></title>
     <url>%2F2018%2F07%2F31%2F%E5%88%86%E6%9E%90Ajax%E7%88%AC%E5%8F%96%E4%BB%8A%E6%97%A5%E5%A4%B4%E6%9D%A1%E8%A1%97%E6%8B%8D%E7%BE%8E%E5%9B%BE%2F</url>
     <content type="text"><![CDATA[今天初学了Ajax，Ajax技术可以利用JavaScript在网页不被刷新的情况下与服务器交换数据并更新网页的部分技术，于是乎，利用Ajax的这一特性，决定去爬取今日头条的街拍图片并且实现自动分类汇总。 实战演练实现方法get_page()来加载单个的Ajax的请求过程123456789101112131415161718import requestsfrom urllib.parse import urlencodedef get_page(offert): params=&#123; 'offset':offset, 'format':'json', 'keyword':'街拍', 'autoload':'ture', 'count':'20', 'cur_tab':'1' &#125; url='https://www.toutiao.com/search_content/?'+ urlencode(params) try: response=requests.get(url) if response.status_code==200: return response.json() except requests.ConnectionError: return None 这里我们通过网页开发者模式可以看出URL的基本构造，唯一不变的是参数offset，所以我们将他作为参数传递，我们使用urlencode()的方法来实现网页的GET请求，然后用requests实现整个网页的GET请求，如果连接的状态码为200，那么返回为用函数response的json()将结果转化为JSON格式内容。 获取图片并且截获主题标题12345678910def get_image(json): if json.get('data'): for item in json.get('title'): title=item.get('title') images=item.get('image_detail') for image in images: yield &#123; 'image':image.get('url'), 'title':title &#125; 实现一个解析方法：提取每条数据中的”imag_etail”字段中的每一张图片链接，将图片链接和图片所属的标题一并返回，此时可以构造一个生成器。 实现保存图片的方法1234567891011121314151617import osfrom hashlib import md5def save_image(item): if not os.path.exists(item.get('title')): os.mkdir(item.get('title')) try: response=requests.get(item.get('image')) if response.status_code==200: file_path = '&#123;0&#125;/&#123;1&#125;.&#123;2&#125;'.format(item.get('title'),md5(response.content).hexdigest(),'jpg') if not os.path.exists(file_path): with open(file_path,'wb') as f: f.write(response.content) else: print('Already Downloaded',file_path) except requests.ConnectionError: print('Failed to Save Image') 用save_image()函数实现图片的保存，item不过是前面get_image函数返回的一个字典。在该方法中，首先根据item的title来创建一个文件夹，然后请求这个图片链接，获取图片的二进制数据，以二进制的形式写入文件。图片的名称可以使用可以使用其内容的Md5的值，这样可以去除反复 实现多进程下载12345678910111213def main(offset): json = get_page(offset) for item in get_images(json): print(item) save_image(item)if __name__ == '__main__': pool = Pool() groups = ([x * 20 for x in range(GROUP_START, GROUP_END + 1)]) pool.map(main, groups) pool.close() pool.join() 我们只需要构造一个offset数组，遍历offset，提取图片链接并下载，在这里也实现了起始页数和终止页数，还利用了多进程池，调用map()的方法实现多进程下载]]></content>
@@ -8,8 +20,8 @@
         <category>Python3</category>
       </categories>
       <tags>
-        <tag>Python3</tag>
         <tag>Network Crawler</tag>
+        <tag>Python3</tag>
       </tags>
   </entry>
   <entry>
@@ -32,8 +44,8 @@
         <category>Python3</category>
       </categories>
       <tags>
-        <tag>Python3</tag>
         <tag>Network Crawler</tag>
+        <tag>Python3</tag>
       </tags>
   </entry>
   <entry>
@@ -94,8 +106,8 @@
         <category>Network Crawler</category>
       </categories>
       <tags>
-        <tag>Python</tag>
         <tag>Network Crawler</tag>
+        <tag>Python</tag>
       </tags>
   </entry>
   <entry>
