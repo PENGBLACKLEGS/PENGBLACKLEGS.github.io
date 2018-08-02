@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="Python3,Network Crawler," />
+  <meta name="keywords" content="Network Crawler,Python3," />
 
 
 
@@ -87,7 +87,7 @@
 
 
 <meta name="description" content="极验验证码极验验证码安全性高，利用机器学习和神经网络，构建线上线下多重静态、动态防御模型。识别模拟轨迹，界定人机边界。 破解思路如果我们直接模拟表单提交，加密参数的构造是个问题，需要分析其加密和校验逻辑，相当繁琐。所以我们直接模拟浏览器动作的方法来完成验证。故我们直接选择应用Selenium来模拟人的行为的方式来完成验证。 故我们先找到带有极验验证的网页，如极验的官方后台，登陆验证按钮如图所示">
-<meta name="keywords" content="Python3,Network Crawler">
+<meta name="keywords" content="Network Crawler,Python3">
 <meta property="og:type" content="article">
 <meta property="og:title" content="极验验证码识别与破解">
 <meta property="og:url" content="http://yoursite.com/2018/08/02/极验验证码识别与破解/index.html">
@@ -97,7 +97,7 @@
 <meta property="og:image" content="http://i2.bvimg.com/656023/6c52699d7b0cf6e1.png">
 <meta property="og:image" content="http://i2.bvimg.com/656023/c905f61103913f65.png">
 <meta property="og:image" content="http://i4.bvimg.com/656023/193c10c3f49b6c1b.png">
-<meta property="og:updated_time" content="2018-08-02T13:01:27.359Z">
+<meta property="og:updated_time" content="2018-08-02T13:03:12.412Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="极验验证码识别与破解">
 <meta name="twitter:description" content="极验验证码极验验证码安全性高，利用机器学习和神经网络，构建线上线下多重静态、动态防御模型。识别模拟轨迹，界定人机边界。 破解思路如果我们直接模拟表单提交，加密参数的构造是个问题，需要分析其加密和校验逻辑，相当繁琐。所以我们直接模拟浏览器动作的方法来完成验证。故我们直接选择应用Selenium来模拟人的行为的方式来完成验证。 故我们先找到带有极验验证的网页，如极验的官方后台，登陆验证按钮如图所示">
@@ -460,7 +460,7 @@
 <p><img src="http://i2.bvimg.com/656023/6c52699d7b0cf6e1.png" alt="Markdown"><br><img src="http://i2.bvimg.com/656023/c905f61103913f65.png" alt="Markdown"></p>
 <p>所以验证步骤为三步<br>（1）模拟点击验证按钮。<br>（2）识别滑动缺口的位置。<br>（3）模拟拖动滑块</p>
 <p>第一步直接用应用Selenium来模拟人的行为的方式来完成<br>第二步利用像素差识别缺口的位置和形状，我们可以构建一个边缘检测算法找出缺口的位置，对于极验，我们可以利用原图对比法识别缺口的位置，对于2张图片我们可以设定一个对比阈值然后遍历2张图片，找到同位置像素RGB差距超过此阈值的像素点，那么这个像素点的位置就是缺口的所在处。</p>
-<p>第（3）步操作看似简单，但其中的坑比较多。极验验证码增加了机器轨迹识别，匀速移动、随机速<br>度移动等方法都不能通过验证，只有完全模拟人的移动轨迹才可以通过验证。人的移动轨迹一般是先<br>加速后减速，我们需要模拟这个过程才能成功。</p>
+<p>第（3）步操作看似简单，但其中的坑比较多。极验验证码增加了机器轨迹识别，匀速移动、随机速度移动等方法都不能通过验证，只有完全模拟人的移动轨迹才可以通过验证。人的移动轨迹一般是先加速后减速，我们需要模拟这个过程才能成功。</p>
 <p>有了基本的思路之后，我们就用程序来实现极验验证码的识别过程吧。</p>
 <h2 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h2><p>选定的链接为https:account.geetest.comlogin也就是极验的管理后台登录页面。在这里我们首先初始化一些配置，如 Selenium对象的初始化及一些参数的配置，如下所示：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">EMAIL =<span class="string">'1604784849@qq.com'</span></span><br><span class="line">PASSWORD = <span class="string">'nicaibudao'</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CrackGeetest</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.url = <span class="string">'https:account.geetest.com/login'</span></span><br><span class="line">        self.browser = webDriver.Chrome()</span><br><span class="line">        self.wait = WebDriverWait(self.browser,<span class="number">20</span>)</span><br><span class="line">        self.password = PASSWORD</span><br></pre></td></tr></table></figure>
@@ -539,9 +539,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Python3/" rel="tag"><i class="fa fa-google"></i> Python3</a>
-          
             <a href="/tags/Network-Crawler/" rel="tag"><i class="fa fa-google"></i> Network Crawler</a>
+          
+            <a href="/tags/Python3/" rel="tag"><i class="fa fa-google"></i> Python3</a>
           
         </div>
       
