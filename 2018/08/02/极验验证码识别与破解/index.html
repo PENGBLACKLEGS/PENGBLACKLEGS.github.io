@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="Network Crawler,Python3," />
+  <meta name="keywords" content="Python3,Network Crawler," />
 
 
 
@@ -87,7 +87,7 @@
 
 
 <meta name="description" content="极验验证码极验验证码安全性高，利用机器学习和神经网络，构建线上线下多重静态、动态防御模型。识别模拟轨迹，界定人机边界。 破解思路如果我们直接模拟表单提交，加密参数的构造是个问题，需要分析其加密和校验逻辑，相当繁琐。所以我们直接模拟浏览器动作的方法来完成验证。故我们直接选择应用Selenium来模拟人的行为的方式来完成验证。 故我们先找到带有极验验证的网页，如极验的官方后台，登陆验证按钮如图所示">
-<meta name="keywords" content="Network Crawler,Python3">
+<meta name="keywords" content="Python3,Network Crawler">
 <meta property="og:type" content="article">
 <meta property="og:title" content="极验验证码识别与破解">
 <meta property="og:url" content="http://yoursite.com/2018/08/02/极验验证码识别与破解/index.html">
@@ -97,7 +97,7 @@
 <meta property="og:image" content="http://i2.bvimg.com/656023/6c52699d7b0cf6e1.png">
 <meta property="og:image" content="http://i2.bvimg.com/656023/c905f61103913f65.png">
 <meta property="og:image" content="http://i4.bvimg.com/656023/193c10c3f49b6c1b.png">
-<meta property="og:updated_time" content="2018-08-02T13:03:12.412Z">
+<meta property="og:updated_time" content="2018-08-02T13:13:37.785Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="极验验证码识别与破解">
 <meta name="twitter:description" content="极验验证码极验验证码安全性高，利用机器学习和神经网络，构建线上线下多重静态、动态防御模型。识别模拟轨迹，界定人机边界。 破解思路如果我们直接模拟表单提交，加密参数的构造是个问题，需要分析其加密和校验逻辑，相当繁琐。所以我们直接模拟浏览器动作的方法来完成验证。故我们直接选择应用Selenium来模拟人的行为的方式来完成验证。 故我们先找到带有极验验证的网页，如极验的官方后台，登陆验证按钮如图所示">
@@ -417,7 +417,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2,539
+                  2,532
                 </span>
               
 
@@ -481,18 +481,19 @@
 <p>get_gap()方法即取缺日位置的方法：此方法的参数是两张图片、一张为带缺口图片，另一张为像素是否相同。比较两张图RGB的绝对值是否均小于定义的值threshold。如果绝对值均在值之内，则代表像素点相同．継遍历。否则代表不相同的像素点、即缺口的位置。</p>
 <p>两张图片有两健明显不同的地方：一个就是待拼合的滑块，一个就是缺口。滑块的位置会出现在左边位置，缺口会出現在与滑块同一水平线的位置，所以缺口一般会在滑块的右側。如果要寻找缺口，直接从滑块右侧寻找即可。我们直接设置遍历的起始横坐标为60，也就是从滑块的右侧开始识别，这样识别出的结果就是缺口的位置。</p>
 <p>现在，我们获取了缺口的位置。完成验证还剩下最后一步一步模拟拖动。</p>
-<h2 id="模拟拖动"><a href="#模拟拖动" class="headerlink" title="模拟拖动"></a>模拟拖动</h2><p>模拟拖动过程不复杂，但其中的坑比较多。现在我们只需要调用拖动的相关函数将滑块拖动到对应位置，是吗？如果是匀速拖动，极验必然会识别出它是程序的操作，因为人无法做到完全匀速拖动。极验验证码利用机器学习模型，筛选此类数据为机器操作，验证码识别失败。</p>
-<p>我们尝试分段模拟，将拖动过程划分几段，每段设置一个平均速度，速度围绕该平均速度小幅度<br>随机抖动，这样也无法完成验证。</p>
+<h2 id="模拟拖动"><a href="#模拟拖动" class="headerlink" title="模拟拖动"></a>模拟拖动</h2><p>模拟拖动过程不复杂，但其中的坑比较多。现在我们只需要调用拖动的相关函数将滑块拖动到对应位置，如果是匀速拖动，极验必然会识别出它是程序的操作，因为人无法做到完全匀速拖动。极验验证码利用机器学习模型，此类数据为机器操作，验证码识别失败。</p>
+<p>我们尝试分段模拟，将拖动过程划分几段，每段设置一个平均速度，速度围绕该平均速度小幅度随机抖动，这样也无法完成验证。</p>
 <p>最后，完全模拟加速减速的过程通过了验证。前段滑块做匀加速运动，后段滑块做匀减速运动，利用物理学的加速度公式即可完成验证。</p>
-<p>滑块滑动的加速度用a来表示，当前速度用v表示，初速度用vo表示，位移用x表示，所需时间<br>用t表示，它们之间满足如下关系：<br>     x = v0 <em> t + 0.5 </em>a <em>a </em>a<br>     v = v0 + a * t</p>
+<p>滑块滑动的加速度用a来表示，当前速度用v表示，初速度用vo表示，位移用x表示，所需时间用t表示，它们之间满足如下关系：<br>     x = v0 <em> t + 0.5 </em>a <em>a </em>a<br>     v = v0 + a * t</p>
 <p>利用这两个公式可以构造轨迹移动算法，计算出先加速后减速的运动轨迹，代码实现如下所示</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_track</span><span class="params">(self, distance)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    根据偏移量获取移动轨迹</span></span><br><span class="line"><span class="string">    :param distance: 偏移量</span></span><br><span class="line"><span class="string">    :return: 移动轨迹</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="comment"># 移动轨迹</span></span><br><span class="line">    track = []</span><br><span class="line">    <span class="comment"># 当前位移</span></span><br><span class="line">    current = <span class="number">0</span></span><br><span class="line">    <span class="comment"># 减速阈值</span></span><br><span class="line">    mid = distance * <span class="number">4</span> / <span class="number">5</span></span><br><span class="line">    <span class="comment"># 计算间隔</span></span><br><span class="line">    t = <span class="number">0.2</span></span><br><span class="line">    <span class="comment"># 初速度</span></span><br><span class="line">    v = <span class="number">0</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">while</span> current &lt; distance:</span><br><span class="line">        <span class="keyword">if</span> current &lt; mid:</span><br><span class="line">            <span class="comment"># 加速度为正2</span></span><br><span class="line">            a = <span class="number">2</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="comment"># 加速度为负3</span></span><br><span class="line">            a = <span class="number">-3</span></span><br><span class="line">        <span class="comment"># 初速度v0</span></span><br><span class="line">        v0 = v</span><br><span class="line">        <span class="comment"># 当前速度v = v0 + at</span></span><br><span class="line">        v = v0 + a * t</span><br><span class="line">        <span class="comment"># 移动距离x = v0t + 1/2 * a * t^2</span></span><br><span class="line">        move = v0 * t + <span class="number">1</span> / <span class="number">2</span> * a * t * t</span><br><span class="line">        <span class="comment"># 当前位移</span></span><br><span class="line">        current += move</span><br><span class="line">        <span class="comment"># 加入轨迹</span></span><br><span class="line">        track.append(round(move))</span><br><span class="line">    <span class="keyword">return</span> track</span><br></pre></td></tr></table></figure>
 <p>track是一个列表，列表的每个元素代表每次移动多少距离。</p>
-<p>首先定义变量mid，即减速的阈值，也就是加速到什么位置开始减速。在这里mid值为4/5。即模<br>拟前45路程是加速过程，后1/5路程是减速过程。</p>
-<p>接着定义当前位移的距离变量 current，初始为0，然后进入 while循环，循环的条件是当前位移<br>小于总距离。在循环里我们分段定义了加速度，其中加速过程的加速度定义为2，减速过程的加速度<br>定义为－3。之后套用位移公式计算出某个时间段内的位移，将当前位移更新并记录到轨迹里即可。</p>
-<p>直到运动轨迹达到总距离时，循环终止。最后得到的 track i记录了每个时间间隔移动了多少位移，<br>这样滑块的运动轨迹就得到了。</p>
+<p>首先定义变量mid，即减速的阈值，也就是加速到什么位置开始减速。在这里mid值为4/5。即模拟前45路程是加速过程，后1/5路程是减速过程。</p>
+<p>接着定义当前位移的距离变量 current，初始为0，然后进入 while循环，循环的条件是当前位移小于总距离。在循环里我们分段定义了加速度，其中加速过程的加速度定义为2，减速过程的加速度定义为－3。之后套用位移公式计算出某个时间段内的位移，将当前位移更新并记录到轨迹里即可。</p>
+<p>直到运动轨迹达到总距离时，循环终止。最后得到的track记录了每个时间间隔移动了多少位移，这样滑块的运动轨迹就得到了。</p>
 <p>最后按照该运动轨迹拖动滑块即可，方法实现如下所示：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">move_to_gap</span><span class="params">(self, slider, track)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    拖动滑块到缺口处</span></span><br><span class="line"><span class="string">    :param slider: 滑块</span></span><br><span class="line"><span class="string">    :param track: 轨迹</span></span><br><span class="line"><span class="string">    :return:</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    ActionChains(self.browser).click_and_hold(slider).perform()</span><br><span class="line">    <span class="keyword">for</span> x <span class="keyword">in</span> track:</span><br><span class="line">        ActionChains(self.browser).move_by_offset(xoffset=x, yoffset=<span class="number">0</span>).perform()</span><br><span class="line">    time.sleep(<span class="number">0.5</span>)</span><br><span class="line">    ActionChains(self.browser).release().perform()</span><br></pre></td></tr></table></figure></p>
-<p>这里传人的参数为滑块对象和运动轨迹。首先调用 Actionchains的click and hold()方法按住施<br>动底部滑块，遍历运动轨迹获取每小段位移距离，调用move_by_offset()方法移动此位移，最后调用<br>release()方法松开鼠标即可。<br><img src="http://i4.bvimg.com/656023/193c10c3f49b6c1b.png" alt="Markdown"></p>
+<p>这里传的参数为滑块对象和运动轨迹。<br>首先调用Actionchains的clickand hold()方法按住施动底部滑块，遍历运动轨迹获取每小段位移距离，<br>调用move_by_offset()方法移动此位移，最后调用<br>release()方法松开鼠标即可。</p>
+<p><img src="http://i4.bvimg.com/656023/193c10c3f49b6c1b.png" alt="Markdown"></p>
 
       
     </div>
@@ -539,9 +540,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Network-Crawler/" rel="tag"><i class="fa fa-google"></i> Network Crawler</a>
-          
             <a href="/tags/Python3/" rel="tag"><i class="fa fa-google"></i> Python3</a>
+          
+            <a href="/tags/Network-Crawler/" rel="tag"><i class="fa fa-google"></i> Network Crawler</a>
           
         </div>
       
