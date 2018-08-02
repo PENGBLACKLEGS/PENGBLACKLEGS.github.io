@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[图形验证码的识别]]></title>
+    <url>%2F2018%2F08%2F02%2F%E5%9B%BE%E5%BD%A2%E9%AA%8C%E8%AF%81%E7%A0%81%E7%9A%84%E8%AF%86%E5%88%AB%2F</url>
+    <content type="text"><![CDATA[图形验证码识别利用OCR技术可以对图形验证码进行识别，要先准备库tesserocr，如果安装出错，那就安装pytesseract库，因为tesserocr主要用于Linux系统，在win系统中有太多的不兼容，那么我们选用谷歌的pytesseract一样可以达到目的 验证码处理12345import pytesseractfrom PIL import Imageimage = Image.open('code.jpg')print(pytesseract.image_to_string(image)) 如果直接利用第三方库肯定识别会有偏差，这是因为验证码旁边多余的线条干扰了图片的识别 图片处理那么我们就必须对图片进行处理，如转灰度、二值化等利用Image对象的convert()的方法参数传入L，即可将图像转化为灰度图像，代码如下： 12image = image.convert('L')image.show() 传入1，对图片进行二值化，代码如下：12image = image.convert('1')image.show() 同时我们还可以指出二值化的阈值，上面采用的默认127阈值，我们不能直接转化原图，要将原图转化为灰度图像，而后在指定二值化阈值，代码如下： 1234567891011image = image.convert('L')threshold = 80table = []for i in range(256): if i &lt; threshold: table.append(0) else: table.append(1)image = image.point(table, '1')image.show() 综合代码如下：12345678910111213141516171819import tesserocrfrom PIL import Imageimage = Image.open('code.jpg')image = image.convert('L')threshold = 127table = []for i in range(256): if i &lt; threshold: table.append(0) else: table.append(1)image = image.point(table, '1')image.show()result = tesserocr.image_to_text(image)print(result) 输出：GTVM]]></content>
+      <categories>
+        <category>Python3</category>
+      </categories>
+      <tags>
+        <tag>Network Crawler</tag>
+        <tag>Python3</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[利用XPath的特性简单抓取豆瓣电影]]></title>
     <url>%2F2018%2F08%2F01%2F%E5%88%A9%E7%94%A8XPath%E7%9A%84%E7%89%B9%E6%80%A7%E7%AE%80%E5%8D%95%E6%8A%93%E5%8F%96%E8%B1%86%E7%93%A3%E7%94%B5%E5%BD%B1%2F</url>
     <content type="text"><![CDATA[今天突然想回顾一下python解析库XPath，利用Xpath的特性可以比正则表达式更快捷的获取网页中的HTML节点，更快的获取网页中的数据。 实例如下:利用requests模拟用户1234567891011import requestsfrom lxml import etreeheaders=&#123; 'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36', 'Referer':'https://movie.douban.com/'&#125;url='https://movie.douban.com/cinema/nowplaying/zhengzhou/'response=requests.get(url,headers=headers)text=response.text 利用Xpath的特性获取HTML节点内容1234567891011121314151617181920212223html=etree.HTML(text)ul=html.xpath("//ul[@class='lists']")[0]lis=ul.xpath("./li")for li in lis: title=li.xpath("@data-title")[0] score = li.xpath("@data-score")[0] duration = li.xpath("@data-duration")[0] region=li.xpath("@data-region")[0] director=li.xpath("@data-director")[0] actors=li.xpath("@data-actors")[0] thumbnail=li.xpath(".//img/@src")[0] movies = [] movie=&#123; 'title': title, 'score':score, 'duration':duration, 'region':region, 'director':director, 'actors':actors, 'thumbnail':thumbnail &#125; movies.append(movie)print(movies) 是不是觉得比正则表达式简单许多！！！ 网页HTML节点内容图片]]></content>
@@ -106,8 +118,8 @@
         <category>Network Crawler</category>
       </categories>
       <tags>
-        <tag>Network Crawler</tag>
         <tag>Python</tag>
+        <tag>Network Crawler</tag>
       </tags>
   </entry>
   <entry>
