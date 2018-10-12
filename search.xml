@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[make_blobs聚类数据生成器]]></title>
+    <url>%2F2018%2F10%2F12%2Fmake-blobs%E8%81%9A%E7%B1%BB%E6%95%B0%E6%8D%AE%E7%94%9F%E6%88%90%E5%99%A8%2F</url>
+    <content type="text"><![CDATA[make_blobs()聚类数据生成器​ scikit中的make_blobs方法常被用来生成聚类算法的测试数据，直观的说，make_blobs()会根据用户的特征数量、中心点数量、范围等来生成几类数据，这些数据可以用来测试聚类算法的效果。 make_blobs方法：1sklearn.datasets.make_blobs(n_samples=100, n_features=2,centers=3, cluster_std=1.0, center_box=(-10.0, 10.0), shuffle=True, random_state=None)[source] 其中： n_samples是待生成的样本的总数。 n_features是每一个样本的总数。 centers表示类别数。 cluster_std表示每个类别的方差，例如我们希望生成2类数据，其中一类比另一类具有更大的方差，可以将cluster_std设置为[1.0,3.0]。]]></content>
+      <categories>
+        <category>Machine Learning</category>
+      </categories>
+      <tags>
+        <tag>Machine Learning</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[GitHub导航栏的基本使用]]></title>
     <url>%2F2018%2F10%2F12%2FGitHub%E5%AF%BC%E8%88%AA%E6%A0%8F%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%2F</url>
     <content type="text"><![CDATA[GitHub导航栏使用的基本概念仓库（Repository）​ 仓库的意思是说，如果你想在GitHub上开源一个项目，那就必须新建一个Repository，如果你的开源项目多了，你就会拥有多个Repositories。 收藏（Star）​ 仓库页面的star按钮，意思为收藏项目的人数，在GitHub上如果有100个star，都是非常的不容易。 复制克隆项目（Fork）​ 什么意思呢？就比如说你开源了一个项目，别人想在你这个项目上做出一些改动，然后应用到自己的项目中去，这个就是Fork的过程，别人对这个项目的改动，丝毫不会影响你的项目代码组成。 发起请求（Pull Request）​ 这个其实是基于Fork的，别人对你项目做出了修改，想让这个修改后的项目开源，把修改后的内容合并到原有的项目当中去，这个时候他就会发送一个Pull Request（简称PR），原始项目的创建人，也就是你感觉这个修改不错，觉得他的修改很OK，就可以接受他的PR。 关注（Watch）​ 如果你Watch了这个项目，那么以后这个项目有任何的更新，你会第一时间收到这个更新通知。 事务卡片（Issue）​ 发现代码bug，但是目前没有成型的代码，需要讨论的时候用。意思是说，当你开源了一个代码，但是别人发现了你的代码中有bug，或者哪些方面做的不够好，那么他就可以给你一个Issue，问题多了就变成了Issues，你看到这些Issues时，去修复就行。]]></content>
@@ -19,8 +30,8 @@
         <category>Python3</category>
       </categories>
       <tags>
-        <tag>Network Crawler</tag>
         <tag>Python3</tag>
+        <tag>Network Crawler</tag>
       </tags>
   </entry>
   <entry>
@@ -31,8 +42,8 @@
         <category>Python3</category>
       </categories>
       <tags>
-        <tag>Network Crawler</tag>
         <tag>Python3</tag>
+        <tag>Network Crawler</tag>
       </tags>
   </entry>
   <entry>
@@ -43,8 +54,8 @@
         <category>Python3</category>
       </categories>
       <tags>
-        <tag>Network Crawler</tag>
         <tag>Python3</tag>
+        <tag>Network Crawler</tag>
       </tags>
   </entry>
   <entry>
@@ -55,8 +66,8 @@
         <category>Python3</category>
       </categories>
       <tags>
-        <tag>Network Crawler</tag>
         <tag>Python3</tag>
+        <tag>Network Crawler</tag>
       </tags>
   </entry>
   <entry>
@@ -67,8 +78,8 @@
         <category>Python3</category>
       </categories>
       <tags>
-        <tag>Network Crawler</tag>
         <tag>Python3</tag>
+        <tag>Network Crawler</tag>
       </tags>
   </entry>
   <entry>
@@ -91,8 +102,8 @@
         <category>Python3</category>
       </categories>
       <tags>
-        <tag>Network Crawler</tag>
         <tag>Python3</tag>
+        <tag>Network Crawler</tag>
       </tags>
   </entry>
   <entry>
@@ -153,8 +164,8 @@
         <category>Network Crawler</category>
       </categories>
       <tags>
-        <tag>Network Crawler</tag>
         <tag>Python</tag>
+        <tag>Network Crawler</tag>
       </tags>
   </entry>
   <entry>
