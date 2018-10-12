@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[GitHub导航栏的基本使用]]></title>
+    <url>%2F2018%2F10%2F12%2FGitHub%E5%AF%BC%E8%88%AA%E6%A0%8F%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%2F</url>
+    <content type="text"><![CDATA[GitHub导航栏使用的基本概念仓库（Repository）​ 仓库的意思是说，如果你想在GitHub上开源一个项目，那就必须新建一个Repository，如果你的开源项目多了，你就会拥有多个Repositories。 收藏（Star）​ 仓库页面的star按钮，意思为收藏项目的人数，在GitHub上如果有100个star，都是非常的不容易。 复制克隆项目（Fork）​ 什么意思呢？就比如说你开源了一个项目，别人想在你这个项目上做出一些改动，然后应用到自己的项目中去，这个就是Fork的过程，别人对这个项目的改动，丝毫不会影响你的项目代码组成。 发起请求（Pull Request）​ 这个其实是基于Fork的，别人对你项目做出了修改，想让这个修改后的项目开源，把修改后的内容合并到原有的项目当中去，这个时候他就会发送一个Pull Request（简称PR），原始项目的创建人，也就是你感觉这个修改不错，觉得他的修改很OK，就可以接受他的PR。 关注（Watch）​ 如果你Watch了这个项目，那么以后这个项目有任何的更新，你会第一时间收到这个更新通知。 事务卡片（Issue）​ 发现代码bug，但是目前没有成型的代码，需要讨论的时候用。意思是说，当你开源了一个代码，但是别人发现了你的代码中有bug，或者哪些方面做的不够好，那么他就可以给你一个Issue，问题多了就变成了Issues，你看到这些Issues时，去修复就行。]]></content>
+      <categories>
+        <category>GitHub</category>
+      </categories>
+      <tags>
+        <tag>GitHub</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[python3下使用requests实现模拟用户登录]]></title>
     <url>%2F2018%2F08%2F07%2Fpython3%E4%B8%8B%E4%BD%BF%E7%94%A8requests%E5%AE%9E%E7%8E%B0%E6%A8%A1%E6%8B%9F%E7%94%A8%E6%88%B7%E7%99%BB%E5%BD%95%2F</url>
     <content type="text"><![CDATA[模拟登录马蜂窝网站提取到的请求信息12345678910Headers： Request URL:https://passport.mafengwo.cn/login/ Request Method:POST origin:https://passport.mafengwo.cn referer:https://passport.mafengwo.cn/ User-Agent:Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36 Form Data: passport:13725168940 password:aaa00000000 模拟登录1234567891011121314151617181920212223242526import requestsuserAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36"header = &#123; # "origin": "https://passport.mafengwo.cn", "Referer": "https://passport.mafengwo.cn/", 'User-Agent': userAgent,&#125;def mafengwoLogin(account, password): # 马蜂窝模仿 登录 print ("开始模拟登录马蜂窝") postUrl = "https://passport.mafengwo.cn/login/" postData = &#123; "passport": account, "password": password, &#125; responseRes = requests.post(postUrl, data = postData, headers = header) # 无论是否登录成功，状态码一般都是 statusCode = 200 print(f"statusCode = &#123;responseRes.status_code&#125;") print(f"text = &#123;responseRes.text&#125;")if __name__ == "__main__": # 从返回结果来看，有登录成功 mafengwoLogin("13756567832", "000000001") 使用cookie访问站点在上一步，我们已经成功登录到马蜂窝网站了。那么接下来要如何访问站点中其他页面呢。前面提到过，网站是通过cookie和session来标记是哪个用户访问的。所以，在我们登录成功之后，有很重要的一步，就是我们需要把cookie保存下来，下一次请求这个站点的页面时，把这个cookie带过去。 保存cookie信息123456789101112131415161718192021222324252627282930313233343536373839404142434445import requests# python2 和 python3的兼容代码try: # python2 中 import cookielib print(f"user cookielib in python2.")except: # python3 中 import http.cookiejar as cookielib print(f"user cookielib in python3.")# session代表某一次连接mafengwoSession = requests.session()# 因为原始的session.cookies 没有save()方法，所以需要用到cookielib中的方法LWPCookieJar，这个类实例化的cookie对象，就可以直接调用save方法。mafengwoSession.cookies = cookielib.LWPCookieJar(filename = "mafengwoCookies.txt")userAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36"header = &#123; # "origin": "https://passport.mafengwo.cn", "Referer": "https://passport.mafengwo.cn/", 'User-Agent': userAgent,&#125;def mafengwoLogin(account, password): # 马蜂窝模仿 登录 print("开始模拟登录马蜂窝") postUrl = "https://passport.mafengwo.cn/login/" postData = &#123; "passport": account, "password": password, &#125; # 使用session直接post请求 responseRes = mafengwoSession.post(postUrl, data = postData, headers = header) # 无论是否登录成功，状态码一般都是 statusCode = 200 print(f"statusCode = &#123;responseRes.status_code&#125;") print(f"text = &#123;responseRes.text&#125;") # 登录成功之后，将cookie保存在本地文件中，好处是，以后再去获取马蜂窝首页的时候，就不需要再走mafengwoLogin的流程了，因为已经从文件中拿到cookie了 mafengwoSession.cookies.save()if __name__ == "__main__": # 从返回结果来看，有登录成功 # mafengwoLogin("13756567832", "000000001") cookie保存结果如下：123456#LWP-Cookies-2.0Set-Cookie3: __today_login=1; path=&quot;/&quot;; domain=&quot;.mafengwo.cn&quot;; path_spec; domain_dot; expires=&quot;2018-03-16 15:56:15Z&quot;; httponly=None; version=0Set-Cookie3: mafengwo=&quot;0a60e1a04f6a6f5555f0e285602b5b17_94281374_5aab641fb23d42.37804626_5aab641fb23dc3.28763728&quot;; path=&quot;/&quot;; domain=&quot;.mafengwo.cn&quot;; path_spec; domain_dot; expires=&quot;2018-06-13 06:25:03Z&quot;; httponly=None; version=0Set-Cookie3: mfw_uuid=&quot;5aab641f-b789-96ef-736d-48640285f4c0&quot;; path=&quot;/&quot;; domain=&quot;.mafengwo.cn&quot;; path_spec; domain_dot; expires=&quot;2019-03-16 06:25:03Z&quot;; version=0Set-Cookie3: oad_n=&quot;a%3A3%3A%7Bs%3A3%3A%22oid%22%3Bi%3A1029%3Bs%3A2%3A%22dm%22%3Bs%3A20%3A%22passport.mafengwo.cn%22%3Bs%3A2%3A%22ft%22%3Bs%00009%3A%222018-03-16+14%3A28%3A47%22%3B%7D&quot;; path=&quot;/&quot;; domain=&quot;.mafengwo.cn&quot;; path_spec; domain_dot; expires=&quot;2018-03-23 06:25:03Z&quot;; version=0Set-Cookie3: uol_throttle=94281374; path=&quot;/&quot;; domain=&quot;.mafengwo.cn&quot;; path_spec; domain_dot; expires=&quot;2018-03-16 06:35:03Z&quot;; version=0 使用cookie登录为了测试访问页面时，是否处于登录状态。有一个比较巧妙的方法：就是直接访问一个需要登录后，才可见的地址。比如说涉及到用户信息的页面。下面以 “我的路线” 页面为例：http://www.mafengwo.cn/plan/route.php 判断cookie登录是否成功12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758import requests# python2 和 python3的兼容代码try: # python2 中 import cookielib print(f"user cookielib in python2.")except: # python3 中 import http.cookiejar as cookielib print(f"user cookielib in python3.")# session代表某一次连接mafengwoSession = requests.session()# 因为原始的session.cookies 没有save()方法，所以需要用到cookielib中的方法LWPCookieJar，这个类实例化的cookie对象，就可以直接调用save方法。mafengwoSession.cookies = cookielib.LWPCookieJar(filename = "mafengwoCookies.txt")userAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36"header = &#123; # "origin": "https://passport.mafengwo.cn", "Referer": "https://passport.mafengwo.cn/", 'User-Agent': userAgent,&#125;def isLoginStatus(): # 通过访问个人中心页面的返回状态码来判断是否为登录状态 routeUrl = "http://www.mafengwo.cn/plan/route.php" # 下面有两个关键点 # 第一个是header，如果不设置，会返回500的错误 # 第二个是allow_redirects，如果不设置，session访问时，服务器返回302， # 然后session会自动重定向到登录页面，获取到登录页面之后，变成200的状态码 # allow_redirects = False 就是不允许重定向 responseRes = mafengwoSession.get(routeUrl, headers = header, allow_redirects = False) print(f"isLoginStatus = &#123;responseRes.status_code&#125;") if responseRes.status_code != 200: return False else: return Trueif __name__ == "__main__": mafengwoSession.cookies.load() isLogin = isLoginStatus() print(f"is login mafengwo = &#123;isLogin&#125;") ''' # 按照之前保存过的mafengwoCookies.txt登录，属于登录状态： user cookielib in python3. isLoginStatus = 200 is login mafengwo = True ''' ''' # 如果把mafengwoCookies.txt中的信息修改掉之后，就无法登录了，属于非登录状态了 user cookielib in python3. isLoginStatus = 302 is login mafengwo = False ''' 最终形成的登录模式12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970import requests# python2 和 python3的兼容代码try: # python2 中 import cookielib print(f"user cookielib in python2.")except: # python3 中 import http.cookiejar as cookielib print(f"user cookielib in python3.")# session代表某一次连接mafengwoSession = requests.session()# 因为原始的session.cookies 没有save()方法，所以需要用到cookielib中的方法LWPCookieJar，这个类实例化的cookie对象，就可以直接调用save方法。mafengwoSession.cookies = cookielib.LWPCookieJar(filename = "mafengwoCookies.txt")userAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36"header = &#123; # "origin": "https://passport.mafengwo.cn", "Referer": "https://passport.mafengwo.cn/", 'User-Agent': userAgent,&#125;# 马蜂窝模仿 登录def mafengwoLogin(account, password): print("开始模拟登录马蜂窝") postUrl = "https://passport.mafengwo.cn/login/" postData = &#123; "passport": account, "password": password, &#125; # 使用session直接post请求 responseRes = mafengwoSession.post(postUrl, data = postData, headers = header) # 无论是否登录成功，状态码一般都是 statusCode = 200 print(f"statusCode = &#123;responseRes.status_code&#125;") print(f"text = &#123;responseRes.text&#125;") # 登录成功之后，将cookie保存在本地文件中，好处是，以后再去获取马蜂窝首页的时候，就不需要再走mafengwoLogin的流程了，因为已经从文件中拿到cookie了 mafengwoSession.cookies.save()# 通过访问个人中心页面的返回状态码来判断是否为登录状态def isLoginStatus(): routeUrl = "http://www.mafengwo.cn/plan/route.php" # 下面有两个关键点 # 第一个是header，如果不设置，会返回500的错误 # 第二个是allow_redirects，如果不设置，session访问时，服务器返回302， # 然后session会自动重定向到登录页面，获取到登录页面之后，变成200的状态码 # allow_redirects = False 就是不允许重定向 responseRes = mafengwoSession.get(routeUrl, headers = header, allow_redirects = False) print(f"isLoginStatus = &#123;responseRes.status_code&#125;") if responseRes.status_code != 200: return False else: return Trueif __name__ == "__main__": # 第一步：尝试使用已有的cookie登录 mafengwoSession.cookies.load() isLogin = isLoginStatus() print(f"is login mafengwo = &#123;isLogin&#125;") if isLogin == False: # 第二步：如果cookie已经失效了，那就尝试用帐号登录 print(f"cookie失效，用户重新登录...") mafengwoLogin("13756567832", "000000001") resp = mafengwoSession.get("http://www.mafengwo.cn/plan/fav_type.php", headers = header, allow_redirects = False) print(f"resp.status = &#123;resp.status_code&#125;") 1234567891011# 第一次运行程序的输出：# 由于第一次还没有生成cookie，所以需要用账户登录一次user cookielib in python3.isLoginStatus = 302is login mafengwo = Falsecookie失效，用户重新登录...开始模拟登录马蜂窝statusCode = 200……………………resp.status = 200 1234567# 第二次运行程序的输出：# 第二次，就直接使用cookie登录了，不再需要使用帐号登录user cookielib in python3.isLoginStatus = 200is login mafengwo = Trueresp.status = 200]]></content>
@@ -8,8 +19,8 @@
         <category>Python3</category>
       </categories>
       <tags>
-        <tag>Python3</tag>
         <tag>Network Crawler</tag>
+        <tag>Python3</tag>
       </tags>
   </entry>
   <entry>
@@ -20,8 +31,8 @@
         <category>Python3</category>
       </categories>
       <tags>
-        <tag>Python3</tag>
         <tag>Network Crawler</tag>
+        <tag>Python3</tag>
       </tags>
   </entry>
   <entry>
@@ -32,8 +43,8 @@
         <category>Python3</category>
       </categories>
       <tags>
-        <tag>Python3</tag>
         <tag>Network Crawler</tag>
+        <tag>Python3</tag>
       </tags>
   </entry>
   <entry>
@@ -44,8 +55,8 @@
         <category>Python3</category>
       </categories>
       <tags>
-        <tag>Python3</tag>
         <tag>Network Crawler</tag>
+        <tag>Python3</tag>
       </tags>
   </entry>
   <entry>
@@ -56,8 +67,8 @@
         <category>Python3</category>
       </categories>
       <tags>
-        <tag>Python3</tag>
         <tag>Network Crawler</tag>
+        <tag>Python3</tag>
       </tags>
   </entry>
   <entry>
@@ -80,8 +91,8 @@
         <category>Python3</category>
       </categories>
       <tags>
-        <tag>Python3</tag>
         <tag>Network Crawler</tag>
+        <tag>Python3</tag>
       </tags>
   </entry>
   <entry>
@@ -142,8 +153,8 @@
         <category>Network Crawler</category>
       </categories>
       <tags>
-        <tag>Python</tag>
         <tag>Network Crawler</tag>
+        <tag>Python</tag>
       </tags>
   </entry>
   <entry>
